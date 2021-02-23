@@ -1,0 +1,232 @@
+<% layout('/boilerplate') %>
+
+
+            <div class="row gy-3">
+
+                <div class="col-12 col-md-6 col-xxl ">
+                    <div class="card border shadow-sm">
+                        <div class="card-body pb-0">
+                            <div class="d-flex  justify-content-between">
+                                <div>
+                                    <div class="d-flex">
+                                       <h4><%=income%> DH </h4>
+                                    </div>
+                                    
+                                    <p>Monthly Income</p>
+                                </div>
+                                <div class="circle text-primary ">
+                                    <div class="circle__content">
+                                        <i class="fas fa-money-bill-wave-alt fa-2x "></i>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xxl ">
+                    <div class="card border shadow-sm">
+                        <div class="card-body pb-0">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4><%= thisMonthSum %>  DH</h4>
+                                    <p>Expenses of this month</p>
+                                </div>
+                                <div class="circle text-primary ">
+                                    <div class="circle__content">
+                                        <!-- icon -->
+                                        <i class="fas fa-shopping-basket fa-2x "></i>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xxl ">
+                    <div class="card border shadow-sm">
+                        <div class="card-body pb-0">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4><%= saving %>  DH</h4>
+                                    <p>Total saving</p>
+                                </div>
+                                <div class="circle text-primary ">
+                                    <div class="circle__content">
+                                        <i class="fas fa-piggy-bank fa-2x "></i>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-2 gy-3">
+                <div class="col-12  col-lg-9 " >
+                    <div class="card shadow-sm" >
+                        <div class="card-body">
+                            <h5 class="card-title">Expenses</h5>
+                        </div>
+                        <canvas class="" id="barChart" width="200" height="50"></canvas>
+                    </div>
+                </div>
+                 <div class="col-auto col-lg-3 border rounded shadow-sm p-2">
+                    <h5 >Expenses per category</h5>
+                    <div class=" d-flex flex-column align-items-center" >
+                            <div style="width: 200px;">
+                                <canvas id="douChart" width="400" height="400"></canvas>
+                            </div>
+                            <div class=" ms-3 align-self-start ">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <% if(catsAmounts.length>0){ %> 
+                                            <% for(let i=0;i<catsAmounts.length;i++){ %> 
+                                                <tr>
+                                                    <td><i class="fas fa-square-full c<%= i+1 %> "></i>
+                                                        <%= catsNames[i] %> 
+                                                    </td>
+                                                    <td><%= catsAmounts[i] %></td>
+                                                </tr> 
+                                                
+                                        <% } %> 
+                                        <% if(other>0){ %>
+                                            <tr>
+                                                <td><i class="fas fa-square-full c4 "></i>
+                                                    Others
+                                                </td>
+                                                <td><%= other %></td>
+                                            </tr> 
+                                            <% } %>  
+                                        <% }else{ %> 
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <% } %> 
+                                        </tbody>
+                                    
+                                </table>
+                            </div>
+                    </div>
+                
+                </div>
+
+            </div>
+
+
+
+    <script src="https://kit.fontawesome.com/f49d92cc5a.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"
+        integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA=="
+        crossorigin="anonymous"></script>
+
+        <script>
+            const monthsList = '<%- year %>'
+            const year= JSON.parse("[" + monthsList + "]")
+    
+            const categoriesList = '<%- catsAmounts %>'
+            let categories= JSON.parse("[" + categoriesList + "]")
+            
+            const names = '<%-catsNames%>'
+            const namesList = names.split(',')
+            namesList.push('others')
+            categories.push(<%-other%>)
+        </script>
+    <script>
+        
+        var ctx = document.getElementById('barChart');
+        Chart.defaults.global.legend = false;
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dev'],
+                datasets: [{
+                    label: 'Expenses',
+                    data: year,
+                    maxBarThickness: 30,
+                    backgroundColor: [
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd',
+                        '#0d6efd'
+                    ],
+                }]
+            },
+            options: {
+                cornerRadius: 15,
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            color: 'transparent',
+                            zeroLineColor: 'grey'
+                        }
+                    }]
+                }
+            }
+        });
+        var ctx1 = document.getElementById('douChart');
+        var douChart = new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: namesList,
+                datasets: [{
+                    label: '# of Votes',
+                    data: categories,
+                    backgroundColor: [
+                        'rgba(255, 99, 132)',
+                        'rgba(54, 162, 235)',
+                        'rgba(255, 206, 86)',
+                        'rgba(75, 192, 192)',
+                    ],
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false,
+                        },
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>

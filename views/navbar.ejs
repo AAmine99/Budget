@@ -1,0 +1,15 @@
+<div class="tabs fw-bolder d-flex">
+    <% if(!currentUser ){ %>
+        <a href="/register">Register</a>
+        <a href="/login" style="margin-left: 0px;">Login</a>
+        <% }else{ %>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/categories">Categories</a>
+            <a href="/categories/new">New category</a>
+            <a href="/expenses">Expenses</a>
+            <a href="/expenses/new">New expense</a>
+            <a href="/incomes">incomes</a>
+            <a href="/incomes/new">New income</a>
+            <a href="/logout">Logout</a>
+            <% } %>
+        </div>

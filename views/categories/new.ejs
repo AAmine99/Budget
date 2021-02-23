@@ -1,0 +1,19 @@
+<% layout('/boilerplate') %>
+
+                <%- include('../flash') %>
+
+                <form action="/categories" method="POST" class="validated-form d-flex " novalidate>
+                    <label class="me-3" for="title">Name</label>
+                    <div class="">
+                        <input class="form-control" minlength="3" maxlength="15" type="text" name="category[name]" id="title" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,15}$" required>
+                        <div class="invalid-feedback">
+                            Please choose a valid category.
+                          </div>
+                    </div>
+                    <div class=" ms-3">
+                        <button class="btn btn-success">Add</button>
+                    </div>
+                </form>
+
+
+

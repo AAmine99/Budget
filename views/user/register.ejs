@@ -1,0 +1,27 @@
+<% layout('/user/userTemp')%>
+<%- include('../flash') %>
+    <h5 class="card-title">Register</h5>
+    <form action="/register" method="POST" class="validated-form" novalidate>
+        <div class="mb-3 ">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-control" type="text" name="username" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,15}$"
+                id="username" required>
+                <div class="invalid-feedback">
+                    Must contain a least one character and no symbol.
+                </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="password">Password </label>
+            <input class="form-control" type="password" name="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}" id="password" required>
+                <div id="passwordHelpBlock" class="form-text">
+                    Must be 8-20 characters long,<br> contain one capital letters and one number.
+                    </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="income">Income</label>
+            <input class="form-control" type="number" min="0" max="1000000" name="income" id="income" required>
+        </div>
+        
+        <button class="btn btn-success">Register</button>
+    </form>

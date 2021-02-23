@@ -1,0 +1,15 @@
+<% layout('/boilerplate') %>
+
+<h5 class=" mb-3">Edit category</h5>
+<form action="/categories/<%= category._id %>?_method=PUT" method="POST" class="validated-form d-flex " novalidate>
+    <div class="">
+        <input class="form-control" value="<%= category.name %>" type="text" name="category[name]" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,15}$" id="title" required>
+        <div class="invalid-feedback">
+            At least one letter is required
+            </div>
+    </div>
+    <div class=" ms-3">
+        <button class="btn btn-info">Edit</button>
+        <a class="btn btn-danger ms-2" href="/categories">Cancel</a>
+    </div>
+</form>

@@ -1,0 +1,41 @@
+<% layout('/boilerplate') %>
+    <style>
+        input {
+            max-width: 200px;
+            min-width: 200px;
+        }
+    </style>
+
+    <%- include('../flash') %>
+
+    <h5 >Add a new income</h5>
+    <form action="/incomes/" class="d-flex flex-column validated-form" method="POST" novalidate>
+        <div class=" d-flex align-items-center my-3 ">
+            <div class="w-75">
+                <label for="amount">amount</label>
+            </div>
+            <div>
+                <input name="income[amount]" type="number" class="form-control" min="1" max="1000000" id="amount" placeholder="Income" required>
+            </div>
+        </div>
+        <div class=" d-flex align-items-center my-3 ">
+            <div class="w-75">
+                <label for="month">month</label>
+            </div>
+            <div>
+                <select name="income[month]" class="form-select">
+                    <% for(let i=0; i<12;i++){ %>
+                        <option value="<%= i %>">
+                            <%= i+1 %>
+                        </option>
+                        <% } %>
+                </select>
+            </div>
+        </div>
+
+        <div class="d-flex mt-3" style="margin-left: 10rem;">
+            <div class="">
+                <button type="submit" class="btn btn-success">Add Expense</button>
+            </div>
+        </div>
+    </form>
